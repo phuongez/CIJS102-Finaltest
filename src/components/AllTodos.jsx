@@ -3,15 +3,6 @@ import { useState } from "react";
 const AllToDos = ({tasks,setAllTasks}) => {
     const [newTask, setNewTask] = useState(null)
 
-    const allTasksEl = tasks.map(task => {
-        return (
-            <div key={task.id} className="task-div">
-                <input type="checkbox" value={task.id} />
-                <p>{task.title}</p>
-            </div>
-        )
-    })
-
     function handleAddTask() {
         if (newTask && newTask!=="") {
             setAllTasks(prev => [...prev,{
@@ -28,6 +19,25 @@ const AllToDos = ({tasks,setAllTasks}) => {
     function handleInputChange(e) {
         setNewTask(e.target.value)
     }
+
+    const handleToggle = (taskId) => {
+        setAllTasks((prevTasks) =>
+          prevTasks.map((task) =>
+            task.id === taskId ? { ...task, completed: !task.completed } : task
+          )
+        );
+    };
+
+    const allTasksEl = tasks.map(task => {
+        return (
+            <div key={task.id} className="task-div">
+                <input 
+                    type="checkbox"
+                    onChange={() => handleToggle(task.id)} />
+                <p style={{ textDecoration: task.completed ? "line-through" : "none" }}>{task.title}</p>
+            </div>
+        )
+    })
 
     return ( 
         <div className="all-tasks">

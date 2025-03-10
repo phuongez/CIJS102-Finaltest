@@ -1,25 +1,25 @@
-import tasks from "../tasks";
+// import tasks from "../tasks";
 import { useState } from "react";
 
-const ActiveToDos = () => {
+const ActiveToDos = ({tasks,setAllTasks}) => {
     const [newTask, setNewTask] = useState(null)
 
     const activeTasksEl = tasks.filter(task => task.active===true).map(task => {
         return (
             <div key={task.id} className="task-div">
-                <input type="checkbox" value={task.id} />
-                <p>{task.title}</p>
+                <input type="checkbox" onChange={() => handleToggle(task.id)}/>
+                <p style={{ textDecoration: task.completed ? "line-through" : "none" }}>{task.title}</p>
             </div>
         )
     })
 
     function handleAddTask() {
         if (newTask && newTask!=="") {
-            tasks.push({
+            setAllTasks(prev => [...prev,{
                 id: tasks.length+1,
                 title: newTask,
                 active: true
-            })
+            }])
             setNewTask("")
         } else {
             alert('You must include title')
@@ -29,6 +29,14 @@ const ActiveToDos = () => {
     function handleInputChange(e) {
         setNewTask(e.target.value)
     }
+
+    const handleToggle = (taskId) => {
+        setAllTasks((prevTasks) =>
+          prevTasks.map((task) =>
+            task.id === taskId ? { ...task, completed: !task.completed } : task
+          )
+        );
+    };
 
     return ( 
         <div className="all-tasks">
