@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import tasks from "../tasks";
 
 const AllToDos = ({tasks,setAllTasks}) => {
     const [newTask, setNewTask] = useState(null)
