@@ -1,10 +1,10 @@
+import tasks from "../tasks";
 import { useState } from "react";
-// import tasks from "../tasks";
 
-const AllToDos = ({tasks,setAllTasks}) => {
+const ActiveToDos = () => {
     const [newTask, setNewTask] = useState(null)
 
-    const allTasksEl = tasks.map(task => {
+    const activeTasksEl = tasks.filter(task => task.active===true).map(task => {
         return (
             <div key={task.id} className="task-div">
                 <input type="checkbox" value={task.id} />
@@ -15,11 +15,11 @@ const AllToDos = ({tasks,setAllTasks}) => {
 
     function handleAddTask() {
         if (newTask && newTask!=="") {
-            setAllTasks(prev => [...prev,{
+            tasks.push({
                 id: tasks.length+1,
                 title: newTask,
                 active: true
-            }])
+            })
             setNewTask("")
         } else {
             alert('You must include title')
@@ -36,9 +36,9 @@ const AllToDos = ({tasks,setAllTasks}) => {
                 <input onChange={handleInputChange} type="text" placeholder="Add Task"/>
                 <button className="add-task-btn">Add</button>
             </form>
-            {allTasksEl}
+            {activeTasksEl}
         </div>
     );
 }
  
-export default AllToDos;
+export default ActiveToDos;

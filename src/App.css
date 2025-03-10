@@ -59,6 +59,27 @@ header {
   margin-bottom: 1em;
 }
 
+.completed-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-btn:hover {
+  opacity: 0.5;
+}
+
+.delete-all {
+  background-color: brown;
+  color: white;
+  padding: 1em;
+  margin-top: 1em;
+}
+
+.delete-all-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .all-tasks {
   padding-inline: 1em;
 }
